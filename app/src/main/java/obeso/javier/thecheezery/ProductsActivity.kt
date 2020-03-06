@@ -7,15 +7,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import kotlinx.android.synthetic.main.activity_products.*
 import kotlinx.android.synthetic.main.item_product.view.*
 
 class ProductsActivity : AppCompatActivity() {
 
     var coldDrinks = ArrayList<Product>()
+    var hotDrinks = ArrayList<Product>()
+    var sweets = ArrayList<Product>()
+    var salties = ArrayList<Product>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
+
+        var bundle = intent.extras
+        var arreglo:ArrayList<Product>? = null
+
+        if(bundle != null){
+            val type = bundle.getString("type")
+            when (type){
+                "coldDrinks" -> {
+                    title_products.setImageResource(R.drawable.cold_drinks)
+                    cargaColdDrinks()
+                    arreglo = coldDrinks
+                }
+                "hotDrinks" -> {
+                    title_products.setImageResource(R.drawable.hot_drinks)
+                    cargaHotDrinks()
+                    arreglo = hotDrinks
+                }
+                "sweets" -> {
+                    title_products.setImageResource(R.drawable.sweets)
+                    cargaSweets()
+                    arreglo = sweets
+                }
+                "salties" -> {
+                    title_products.setImageResource(R.drawable.salties)
+                    cargaSalties()
+                    arreglo = salties
+                }
+            }
+        }
+
+        var adapter = productAdapter(this, arreglo ?: coldDrinks)
+        list_products.adapter = adapter
     }
 
 
@@ -26,6 +62,32 @@ class ProductsActivity : AppCompatActivity() {
         coldDrinks.add(Product("Matcha Latte", R.drawable.matcha, "Leafy taste ofmatcha green tea powder with creamy milk and a little sugar for a flavorbalance that will leave you feeling ready and raring to go.", 4))
         coldDrinks.add(Product("Oreo Milkshake", R.drawable.oreomilkshake,"Chocolate ice cream, and oreo cookies. Topped with whipped cream withcocoa and chocolate syrup.", 7))
         coldDrinks.add(Product("Peanut Milkshake", R.drawable.peanutmilkshake,"Vanilla ice cream, mixed with peanut butter and chocolate.", 7))
+    }
+
+    fun cargaHotDrinks () {
+        hotDrinks.add(Product("Latte", R.drawable.latte, "Coffee drink made with espresso and steamed milk", 6))
+        hotDrinks.add(Product("Hot chocolate", R.drawable.hotchocolate, "Heated drink consisting of shaved chocolate, topped with marshmallows.", 5))
+        hotDrinks.add(Product("Espresso", R.drawable.espresso, "Full-flavored, concentrated form of coffee.", 4))
+        hotDrinks.add(Product("Chai Latte", R.drawable.chailatte, "Spiced tea concentrate with milk", 6))
+        hotDrinks.add(Product("Capuccino", R.drawable.capuccino, "A cappuccino is an espresso-based coffee drink, prepared with steamed foam.", 7))
+        hotDrinks.add(Product("American coffee", R.drawable.americano, "Espresso with hot water", 2))
+    }
+
+    fun cargaSweets () {
+        sweets.add(Product("Blueberry cake", R.drawable.blueberrycake, "Vanilla cake flavor, topped with cheese topping and blueberries.", 6))
+        sweets.add(Product("Chocolate cupcake", R.drawable.chocolatecupcake, "Chocolate cupcakes topped with butter cream and cherries", 3))
+        sweets.add(Product("Lemon tartalette", R.drawable.lemontartalette, "Pastry shell with a lemon flavored filling", 4))
+        sweets.add(Product("Red Velvet cake", R.drawable.redvelvetcake, "Soft, moist, buttery cake topped with an easy cream cheese frosting.", 6))
+        sweets.add(Product("Cherry cheesecake", R.drawable. strawberrycheesecake, "This cherry topped cheesecake is positively creamy and delicious and will be your new favorite dessert.", 7))
+        sweets.add(Product("Tiramisu", R.drawable.tiramisu, "Coffee-flavored Italian dessert", 6))
+    }
+
+    fun cargaSalties () {
+        salties.add(Product("Chicken crepes", R.drawable.chickencrepes, "Fine crepes stuffed with Alfredo chicken, spinach and mushrooms.", 6))
+        salties.add(Product("Club Sandwich", R.drawable.clubsandwich, "A delicious sandwich served with french fries.", 5))
+        salties.add(Product("Panini", R.drawable.hampanini, "Sandwich made with Italian bread served warmed by grilling.", 4))
+        salties.add(Product("Philly cheese steak", R.drawable. phillycheesesteak, "Smothered in grilled onions, green peppers, mushrooms, and Provolone.", 6))
+        salties.add(Product("Nachos", R.drawable. nachos, "Tortilla chips layered with beef and melted cheddar cheese. Served with fried beans, guacamole, pico de gallo, and sour topping.", 7))
     }
 
     private class productAdapter: BaseAdapter {
@@ -42,10 +104,12 @@ class ProductsActivity : AppCompatActivity() {
             var product = products[position]
             var inflator = LayoutInflater.from(context)
             var vista = inflator.inflate(R.layout.item_product, null)
+
             vista.product_image.setImageResource(product.image)
             vista.product_name.setText(product.name)
             vista.product_description.setText(product.description)
-            vista.product_price.setText('$'+""+product.price+"")
+            vista.product_price.setText("$${product.price}")
+
             return vista
         }
 

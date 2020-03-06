@@ -36,6 +36,7 @@
         >
 
         <Button
+            android:id="@+id/button_cold_drinks"
             android:layout_marginRight="2dp"
             android:text="@string/cold_drinks"
             android:fontFamily="@string/light"
@@ -49,6 +50,7 @@
             />
 
         <Button
+            android:id="@+id/button_hot_drinks"
             android:layout_marginLeft="2dp"
             android:text="@string/hot_drinks"
             android:fontFamily="@string/light"
@@ -62,6 +64,7 @@
             />
 
         <Button
+            android:id="@+id/button_sweets"
             android:layout_marginRight="2dp"
             android:layout_marginTop="4dp"
             android:text="@string/sweets"
@@ -75,6 +78,7 @@
             />
 
         <Button
+            android:id="@+id/button_salties"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="4dp"
             android:text="@string/salties"
@@ -88,6 +92,7 @@
             />
 
         <Button
+            android:id="@+id/button_combos"
             android:layout_marginRight="2dp"
             android:layout_marginTop="4dp"
             android:text="@string/combos"
@@ -101,6 +106,7 @@
             />
 
         <Button
+            android:id="@+id/button_personalized"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="4dp"
             android:text="@string/personalized"
